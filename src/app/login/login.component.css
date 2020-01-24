@@ -1,0 +1,17 @@
+.login_form h5{
+    text-align: center;
+}
+.custom_btn{
+    margin-top: 20px;
+    border-radius: 0px;
+}
+.mr10{
+    margin-right:10px;
+}
+.text_input {
+    border-radius: 0px!important
+}
+
+.has-danger{
+    color:#dc3545;
+}
