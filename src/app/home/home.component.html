@@ -1,8 +1,20 @@
-<h1>Home</h1>
 <div class="container">
-        <div class="row">
-            <div class="col-md-7 offset-md-3">
-                <login></login>
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="flex_container">
+                <div class="left_item">
+                    <div class="signin_info">
+                        <h5>Welcome Back !</h5>
+                        <p>New User Sign Up,Existing User Sing In</p>
+                        <a href="javascript: void(0);" class="c_anch ml10" (click)="showLoginForm()">Sign In</a>
+                        <a href="javascript: void(0);"  class="c_anch ml10" (click)="showSignUpForm()">Sign Up</a>
+                    </div>
+                </div>
+                <div class="form_holder">
+                    <login *ngIf="isSignIn"></login>
+                    <register *ngIf="!isSignIn"></register>
+                </div>
             </div>
         </div>
+    </div>
 </div>

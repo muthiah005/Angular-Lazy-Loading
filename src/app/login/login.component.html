@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col l12 m12 s12">
                 <label>Email</label>
-                <input type="text" formControlName="email" class="text_input form-control" required />
+                <input type="text" formControlName="email" class="text_input form-control" maxlength="60"/>
                 <div [ngClass]="{
                 'has-danger':loginForm.controls.email.invalid && !loginForm.controls.email.errors.required && (loginForm.controls.email.dirty || loginForm.controls.email.touched) }"
                     *ngIf="loginForm.controls.email.errors && loginForm.controls.email.invalid && !loginForm.controls.email.errors.required && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col l12 m12 s12">
                 <label>Password</label>
-                <input type="password" formControlName="password" class="text_input form-control" required />
+                <input type="password" formControlName="password" class="text_input form-control" maxlength="20" />
 
                 <div [ngClass]="{
             'has-danger':loginForm.controls.password.errors.required && (loginForm.controls.password.dirty || loginForm.controls.password.touched) }"

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'login',
@@ -10,12 +12,12 @@ export class LoginComponent {
 
   public loginForm: FormGroup;
   public isValid: boolean = true;
-  public isUserExist: boolean = false;
-
-  constructor(private formBuilder: FormBuilder) {
+  private user:Object = {email:'muthiah005@gmail.com' ,password:'12345678',name:'muthiah'}
+  constructor(private formBuilder: FormBuilder,private router:Router,private authService:AuthService) {
     this.createLoginForm();
   }
 
+  
   ngOnInit() {
     console.debug("--------", 'Login');
   }
@@ -29,6 +31,13 @@ export class LoginComponent {
 
   public login() {
     console.debug(this.loginForm.value);
+    if(this.loginForm.value.email === 'muthiah005@gmail.com' && this.loginForm.value.password === '12345678'){
+      this.authService.setLocalUserInfo({email:this.loginForm.value.email,password:this.loginForm.value.password,name:'muthiah'});
+      this.router.navigate(['dashboard']);
+      this.isValid = true;
+    }else{
+      this.isValid = false;
+    }
   }
 
   public cancel() {

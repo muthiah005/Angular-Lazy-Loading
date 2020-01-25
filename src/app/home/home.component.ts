@@ -8,11 +8,21 @@ import { Component } from "@angular/core";
 
 
 export class HomeComponent  {
+
+    public isSignIn:boolean = false;
+
     constructor(){
 
     }
 
     ngOnInit()  {
         console.debug("Home");
+    }
+
+    showLoginForm()     {
+        this.isSignIn = true;
+    }
+    showSignUpForm()    {
+        this.isSignIn = false;
     }
 }
