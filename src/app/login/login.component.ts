@@ -12,7 +12,7 @@ export class LoginComponent {
 
   public loginForm: FormGroup;
   public isValid: boolean = true;
-  private user:Object = {email:'muthiah005@gmail.com' ,password:'12345678',name:'muthiah'}
+  private user:any;
   constructor(private formBuilder: FormBuilder,private router:Router,private authService:AuthService) {
     this.createLoginForm();
   }
@@ -31,10 +31,18 @@ export class LoginComponent {
 
   public login() {
     console.debug(this.loginForm.value);
-    if(this.loginForm.value.email === 'muthiah005@gmail.com' && this.loginForm.value.password === '12345678'){
-      this.authService.setLocalUserInfo({email:this.loginForm.value.email,password:this.loginForm.value.password,name:'muthiah'});
-      this.router.navigate(['dashboard']);
-      this.isValid = true;
+    const users =  this.authService.getDeafultUserList();
+
+    this.user = users.filter((el)=>{
+      return (el.email === this.loginForm.value.email && el.password === this.loginForm.value.password)
+    })
+
+    if(this.user.length >  0){
+      if(this.loginForm.value.email === this.user[0].email && this.loginForm.value.password === this.user[0].password){
+        this.authService.setLocalUserInfo({email:this.loginForm.value.email,password:this.loginForm.value.password,name:'testUser'});
+        this.router.navigate(['dashboard']);
+        this.isValid = true;
+      }
     }else{
       this.isValid = false;
     }

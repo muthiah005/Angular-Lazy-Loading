@@ -1,5 +1,8 @@
 <div class="register_form">
     <h5>Create Account</h5>
+    <div class="alert alert-success" role="alert" *ngIf="user['registered']">
+        User Registered Successfully
+    </div>
     <form [formGroup]="registerForm">
         <!-- First name  -->
         <div class="row">
@@ -105,7 +108,7 @@
             </div>
         </div>
 
-        <span *ngIf="isUserExist" class="has-danger">User already Exist</span>
+        <span *ngIf="user['isUserExist']" class="has-danger">User already Exist</span>
         <div class="row">
             <div class="col col l4 m4 s12 pr0 offset-md-8 text-right">
                 <button type="submit" [ngClass]="{'btn-success':!registerForm.invalid}" [disabled]="registerForm.invalid"

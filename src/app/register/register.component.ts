@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector:'register',
@@ -10,9 +11,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class RegisterComponent {
 
     public registerForm: FormGroup;
-    public isUserExist: boolean = false;
+    public user:Object ={ isUserExist: false,registered:false }
+     
 
-    constructor(private formBuilder:FormBuilder){
+    constructor(private formBuilder:FormBuilder,private authService:AuthService){
         this.createRegisterForm()
     }
 
@@ -42,6 +44,19 @@ export class RegisterComponent {
 
   public register() {
     console.debug(this.registerForm.value);
+    const users = this.authService.getDeafultUserList();
+    let found = users.filter((el)=>{
+      return (el.email === this.registerForm.value.email)
+    });
+
+    if(found.length === 0){
+      this.authService.addNewUser({id:users.length+1,"email":this.registerForm.value.email,"password":this.registerForm.value.password});
+      this.user['registered'] = true;
+    }else{
+      console.debug("user already exist");
+      this.user['isUserExist'] = true;
+    }
+    
   }
 
   public cancel() {

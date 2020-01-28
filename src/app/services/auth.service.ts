@@ -6,6 +6,8 @@ import { Injectable } from "@angular/core";
 
 export class AuthService {
     public isLoggedIn:boolean = false;
+    public userList:Array<any> = [{"id":1,"email":"muthiah005@gmail.com","password":"12345678"},
+                                  {"id":2,"email":"test@gmail.com","password":"12345678"}]
     constructor(){
 
     }
@@ -14,10 +16,21 @@ export class AuthService {
         this.isAuthenticated();
     }
 
+    public setDeafultUserList() {
+        const userList  = JSON.parse(localStorage.getItem('userList'));
+        console.debug("userList",userList);
+        if(userList === undefined || userList === null){
+            localStorage.setItem('userList',JSON.stringify(this.userList));
+        }
+    }
+
+    public getDeafultUserList(){
+        return this.userList;
+    }
+
     public isAuthenticated(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
-
-        if(user['email'] === 'muthiah005@gmail.com'){
+        if(user['email']){
             this.isLoggedIn = true;
             return true;
 
@@ -27,6 +40,11 @@ export class AuthService {
 
     public setLocalUserInfo(loggedInUser){
         localStorage.setItem('user',JSON.stringify(loggedInUser));
+    }
+
+    public addNewUser(user) {
+        this.userList.push(user);
+        localStorage.setItem('userList',JSON.stringify(this.userList));
     }
 
     public getLocalUserInfo()   {

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector:'home',
@@ -11,12 +12,13 @@ export class HomeComponent  {
 
     public isSignIn:boolean = false;
 
-    constructor(){
+    constructor(private authService:AuthService){
 
     }
 
     ngOnInit()  {
         console.debug("Home");
+        this.authService.setDeafultUserList();
     }
 
     showLoginForm()     {
